@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zmittag</string>
+
+    <string name="settings">Settings</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="language">Language</string>
+    <string name="language_de">German</string>
+    <string name="language_en">English</string>
+    <string name="refresh">Refresh</string>
+
+    <string name="today">Today</string>
+    <string name="loading">Loading…</string>
+    <string name="empty_no_menu_today">No menu for this day.</string>
+    <string name="empty_no_week">No menu this week.</string>
+
+    <string name="error_network">Can\'t reach the server.</string>
+    <string name="error_server">Server error.</string>
+    <string name="error_malformed">Unexpected response.</string>
+    <string name="error_unknown">Something went wrong.</string>
+
+    <string name="vegan">Vegan</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="meat">Meat</string>
+
+    <string name="tile_no_menu">No menu today</string>
+</resources>

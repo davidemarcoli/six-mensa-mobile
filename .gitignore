@@ -1,0 +1,27 @@
+# Nix / direnv
+.direnv/
+result
+
+# Gradle / Android
+.gradle/
+build/
+app/build/
+local.properties
+*.iml
+.kotlin/
+captures/
+.cxx/
+
+# IDE
+.idea/
+
+# Keys
+*.jks
+*.keystore
+
+# Signing
+keystore.properties
+app/keystore/
+
+# Shareable builds
+dist/

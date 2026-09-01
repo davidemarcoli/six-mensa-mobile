@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colours come from Compose (Material You / seeded scheme), not from XML.
+         This theme only needs to be a bar-less host for the Activity; the window
+         background exists so there is no white flash before Compose draws.
+         Note: there is no framework `Theme.DeviceDefault.DayNight.NoActionBar`
+         (DayNight is an AppCompat/Material Components concept), so the day/night
+         split is done with the `night` resource qualifier on the colour instead. -->
+    <style name="Theme.SixMensa" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <!-- Launch theme. Android 12+ shows a system splash regardless; core-splashscreen
+         backports the same look to API 26-30 so the app starts identically everywhere. -->
+    <style name="Theme.SixMensa.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/ic_launcher_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.SixMensa</item>
+    </style>
+</resources>
