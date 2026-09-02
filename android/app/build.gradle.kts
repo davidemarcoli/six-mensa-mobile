@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+
 val keystoreProperties = Properties().apply {
     val file = rootProject.file("keystore.properties")
     if (file.exists()) file.inputStream().use { load(it) }
