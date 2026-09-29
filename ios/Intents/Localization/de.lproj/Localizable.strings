@@ -1,0 +1,8 @@
+"Today's menu" = "Heutiges Menü";
+"Reads today's lunch menu from the SIX canteens." = "Liest das heutige Mittagsmenü aus den SIX-Mensen.";
+"Restaurant" = "Restaurant";
+"Show today's menu at \\(.\\$restaurant)" = "Zeig mir das heutige Menü bei \\(.\\$restaurant)";
+"What's for lunch today in \\(.\\$restaurant)? ${applicationName}" = "Was gibt es heute in \\(.\\$restaurant) zu Mittag? ${applicationName}";
+"Show today's menu ${applicationName}" = "Zeig mir das heutige Menü ${applicationName}";
+"What's for lunch? ${applicationName}" = "Was gibt es zu Mittag? ${applicationName}";
+"No menu is available for today." = "Für heute ist kein Menü verfügbar.";

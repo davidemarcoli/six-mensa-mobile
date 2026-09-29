@@ -42,7 +42,7 @@ struct MenuItem: Codable, Hashable, Sendable, Identifiable {
     var id: String {
         let pricePart: String
         if let price {
-            pricePart = "\(price.intern.map(String.init) ?? "-")|\(price.extern.map(String.init) ?? "-")"
+            pricePart = "\(price.intern.map { "\($0)" } ?? "-")|\(price.extern.map { "\($0)" } ?? "-")"
         } else {
             pricePart = "-"
         }
@@ -81,7 +81,8 @@ struct MenuItem: Codable, Hashable, Sendable, Identifiable {
         description = (try container.decodeIfPresent(String.self, forKey: .description) ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         type = try container.decodeIfPresent(String.self, forKey: .type) ?? ""
         dietaryType = try container.decodeIfPresent(DietaryType.self, forKey: .dietaryType) ?? .unknown
-        price = try container.decodeIfPresent(Price.self, forKey: .price)?.takeIf { $0.hasAny }
+        let decodedPrice = try container.decodeIfPresent(Price.self, forKey: .price)
+        price = (decodedPrice?.hasAny == true) ? decodedPrice : nil
         if let rawOrigin = try container.decodeIfPresent(String.self, forKey: .origin) {
             let trimmed = rawOrigin.trimmingCharacters(in: .whitespacesAndNewlines)
             origin = trimmed.isEmpty ? nil : trimmed
@@ -137,6 +138,15 @@ struct DayMenu: Codable, Hashable, Sendable, Identifiable {
 
     var isToday: Bool {
         DayResolver.isToday(self, language: .de) || DayResolver.isToday(self, language: .en)
+    }
+
+    func filtered(to preferredMenuType: String?) -> DayMenu {
+        guard let preferredMenuType, !preferredMenuType.isEmpty else { return self }
+        return DayMenu(
+            date: date,
+            day: day,
+            menues: menues.filter { $0.displayType.caseInsensitiveCompare(preferredMenuType) == .orderedSame }
+        )
     }
 
     enum CodingKeys: String, CodingKey {

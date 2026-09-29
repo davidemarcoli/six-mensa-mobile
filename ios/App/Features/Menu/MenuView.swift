@@ -11,27 +11,12 @@ struct MenuView: View {
         return min(store.selectedDayIndex, store.week.count - 1)
     }
 
-    private var selectedDayBinding: Binding<Int> {
-        Binding(
-            get: { safeSelectedDayIndex },
-            set: { store.selectedDayIndex = min($0, max(store.week.count - 1, 0)) }
-        )
-    }
-
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 restaurantPicker
                 if !store.week.isEmpty {
                     dayChips
-                }
-                if let updated = store.lastUpdated {
-                    Text(String(format: NSLocalizedString("menu.updated", comment: ""), DayResolver.relativeUpdateLabel(since: updated)))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
                 }
                 if let err = store.errorMessage {
                     // MenuStore already formats stale failures into a full sentence; render as-is.
@@ -105,14 +90,15 @@ struct MenuView: View {
     }
 
     private var dayChips: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        let week = store.week
+        return ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(store.week.indices, id: \.self) { i in
+                ForEach(week.indices, id: \.self) { i in
                     let selected = i == safeSelectedDayIndex
                     VStack(spacing: 2) {
-                        Text(store.week[i].day)
+                        Text(week[i].day)
                             .font(.footnote.weight(selected ? .bold : .regular))
-                        Text(store.week[i].date)
+                        Text(week[i].date)
                             .font(.caption2)
                     }
                     .padding(.horizontal, 12)
@@ -126,41 +112,54 @@ struct MenuView: View {
                     .foregroundStyle(selected ? Color.white : Color.primary)
                     .contentShape(Capsule())
                     .onTapGesture { store.selectedDayIndex = i }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel("\(week[i].day), \(week[i].date)")
+                    .accessibilityAddTraits(.isButton)
+                    .accessibilityAddTraits(selected ? .isSelected : [])
+                    .accessibilityValue(selected ? NSLocalizedString("accessibility.selected", comment: "") : "")
                 }
             }
             .padding(.horizontal)
             .padding(.vertical, 10)
         }
+        .sensoryFeedback(.selection, trigger: safeSelectedDayIndex)
     }
 
-    @ViewBuilder
     private var menuContent: some View {
-        if store.week.isEmpty && store.state == .loading {
-            ProgressView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else if store.week.isEmpty {
-            VStack(spacing: 12) {
-                Image(systemName: "fork.knife")
-                    .font(.largeTitle)
-                    .foregroundStyle(.tertiary)
-                Text("dish.none")
-                    .foregroundStyle(.secondary)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else {
-            TabView(selection: selectedDayBinding) {
-                ForEach(store.week.indices, id: \.self) { i in
-                    DayMenuPage(
-                        day: store.week[i],
-                        language: settings.language,
-                        accent: settings.accentColor,
-                        isToday: i == store.todayIndex
-                    )
-                    .refreshable { await store.refresh(force: true) }
-                    .tag(i)
+        let week = store.week
+        if week.isEmpty && store.state == .loading {
+            return AnyView(
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            )
+        } else if week.isEmpty {
+            return AnyView(
+                VStack(spacing: 12) {
+                    Image(systemName: "fork.knife")
+                        .font(.largeTitle)
+                        .appForegroundStyle(.tertiary)
+                    Text("dish.none")
+                        .appForegroundStyle(.secondary)
                 }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .automatic))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            )
+        } else {
+            let index = safeSelectedDayIndex.clamped(to: 0...max(week.count - 1, 0))
+            return AnyView(
+                DayMenuPage(
+                    day: week[index],
+                    language: settings.language,
+                    accent: settings.accentColor,
+                    isToday: index == store.todayIndex
+                )
+                .refreshable { await store.refresh(force: true) }
+            )
         }
+    }
+}
+
+private extension Comparable {
+    func clamped(to range: ClosedRange<Self>) -> Self {
+        min(max(self, range.lowerBound), range.upperBound)
     }
 }

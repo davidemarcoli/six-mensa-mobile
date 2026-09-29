@@ -1,4 +1,5 @@
-"widget.name" = "Zmittag";
+"widget.name" = "SIX Mensa";
+"widget.description" = "Today's canteen menu";
 "widget.today" = "Today";
 "widget.empty" = "No menu today";
 "widget.unavailable" = "Menu unavailable — open the app";

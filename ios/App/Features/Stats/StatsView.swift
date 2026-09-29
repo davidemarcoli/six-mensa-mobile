@@ -46,7 +46,7 @@ struct StatsView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text(String(format: NSLocalizedString("stats.filtered", comment: ""), "\(filtered.count)", "\(flat.count)"))
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .appForegroundStyle(.secondary)
 
                 if let error = history.errorMessage {
                     HStack(spacing: 8) {
@@ -64,9 +64,9 @@ struct StatsView: View {
                     VStack(spacing: 8) {
                         Image(systemName: "magnifyingglass")
                             .font(.largeTitle)
-                            .foregroundStyle(.tertiary)
+                            .appForegroundStyle(.tertiary)
                         Text("stats.search.empty")
-                            .foregroundStyle(.secondary)
+                            .appForegroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 48)
@@ -104,7 +104,7 @@ struct StatsView: View {
             rangeRow
         }
         .padding(12)
-        .background(RoundedRectangle(cornerRadius: 14).fill(Color(uiColor: .secondarySystemBackground)))
+        .glassCardBackground(cornerRadius: 14)
     }
 
     private var rangeRow: some View {
@@ -141,7 +141,7 @@ struct StatsView: View {
 
     private func setRange(from: String, to: String) {
         guard history.from != from || history.to != to else { return }
-        if let (min, max) = (from, to).bothNonEmpty {
+        if let (min, max) = bothNonEmpty(from, to) {
             if min > max { history.to = min; history.from = max } else { history.from = min; history.to = max }
         } else {
             history.from = from
@@ -173,7 +173,7 @@ struct StatsView: View {
         selection: Binding<T?>
     ) -> some View {
         HStack(alignment: .top, spacing: 8) {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.footnote.weight(.semibold))
                 .frame(width: 90, alignment: .leading)
 
@@ -190,10 +190,17 @@ struct StatsView: View {
                                 .padding(.vertical, 5)
                                 .background(Capsule().fill(isSelected ? settings.accentColor : Color(uiColor: .tertiarySystemFill)))
                                 .foregroundStyle(isSelected ? Color.white : Color.primary)
+                                .overlay {
+                                    if isSelected {
+                                        Capsule().strokeBorder(settings.accentColor.opacity(0.4), lineWidth: 1)
+                                    }
+                                }
                         }
                         .buttonStyle(.plain)
+                        .accessibilityAddTraits(isSelected ? .isSelected : [])
                     }
                 }
+                .sensoryFeedback(.selection, trigger: selection.wrappedValue)
             }
         }
     }
@@ -206,13 +213,10 @@ struct StatsView: View {
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RoundedRectangle(cornerRadius: 14).fill(Color(uiColor: .secondarySystemBackground)))
+        .glassCardBackground(cornerRadius: 14)
     }
 }
 
-private extension (String, String) {
-    var bothNonEmpty: (String, String)? {
-        let (a, b) = self
-        return a.isEmpty || b.isEmpty ? nil : (a, b)
-    }
+private func bothNonEmpty(_ a: String, _ b: String) -> (String, String)? {
+    a.isEmpty || b.isEmpty ? nil : (a, b)
 }

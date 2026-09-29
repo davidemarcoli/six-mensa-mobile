@@ -27,6 +27,8 @@ struct PriceTrendChart: View {
                 AxisMarks(values: .automatic(desiredCount: 6))
             }
             .frame(height: 220)
+            .accessibilityLabel(NSLocalizedString("stats.price_trend", comment: ""))
+            .accessibilityValue(trendAccessibilityValue)
 
             if series.count > 1 {
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -38,13 +40,20 @@ struct PriceTrendChart: View {
                                     .frame(width: 8, height: 8)
                                 Text(s.isOverall ? NSLocalizedString("stats.overall", comment: "") : s.type)
                                     .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .appForegroundStyle(.secondary)
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    private var trendAccessibilityValue: String {
+        guard let overall = series.first(where: { $0.isOverall }),
+              let first = overall.points.first, let last = overall.points.last
+        else { return "" }
+        return "\(first.month): \(first.value) CHF, \(last.month): \(last.value) CHF"
     }
 }
 
@@ -80,6 +89,8 @@ struct DietaryDonut: View {
                 }
             }
             .frame(height: 200)
+            .accessibilityLabel(NSLocalizedString("stats.dietary", comment: ""))
+            .accessibilityValue(dietaryAccessibilityValue)
 
             HStack(spacing: 12) {
                 ForEach(counts) { c in
@@ -91,7 +102,7 @@ struct DietaryDonut: View {
                             .font(.caption)
                         Text("\(c.count) (\(percent(c.count)))%")
                             .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .appForegroundStyle(.secondary)
                     }
                 }
             }
@@ -126,6 +137,15 @@ struct DietaryDonut: View {
 
     private func percent(_ count: Int) -> Int {
         total == 0 ? 0 : Int((Double(count) / Double(total) * 100).rounded())
+    }
+
+    private var dietaryAccessibilityValue: String {
+        counts.compactMap { c in
+            let n = name(for: c.type)
+            guard !n.isEmpty else { return nil }
+            return "\(n): \(c.count) (\(percent(c.count))%)"
+        }
+        .joined(separator: ", ")
     }
 }
 
@@ -181,13 +201,13 @@ struct DishFrequencyCard: View {
                             HStack(alignment: .top) {
                                 Text(String(format: "%02d", index + 1))
                                     .font(.caption.monospacedDigit())
-                                    .foregroundStyle(.secondary)
+                                    .appForegroundStyle(.secondary)
                                 Text(item.label)
                                     .lineLimit(2)
                                 Spacer()
                                 Text("\(item.count)")
                                     .font(.caption.monospacedDigit())
-                                    .foregroundStyle(.secondary)
+                                    .appForegroundStyle(.secondary)
                             }
                             .padding(.vertical, 6)
 

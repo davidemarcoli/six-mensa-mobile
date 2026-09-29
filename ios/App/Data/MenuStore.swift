@@ -87,12 +87,18 @@ final class MenuStore {
 
     func selectRestaurant(_ newRestaurant: Restaurant) async {
         restaurant = newRestaurant
+        // Keep the persisted standard restaurant in sync so the widget, Siri
+        // intent and notifications read the same cache key we are about to write.
+        if settings.standardRestaurant != newRestaurant {
+            settings.standardRestaurant = newRestaurant
+        }
         week = []
         lastUpdated = nil
         errorMessage = nil
         state = .loading
         selectedDayIndex = 0
         await load()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     func shareText(for day: DayMenu) -> String {

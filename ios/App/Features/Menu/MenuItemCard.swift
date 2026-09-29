@@ -20,7 +20,7 @@ struct MenuItemCard: View {
                 if let price = item.price, price.hasAny {
                     Text(ShareText.priceText(price, language: language))
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .appForegroundStyle(.secondary)
                         .monospacedDigit()
                 }
             }
@@ -29,21 +29,21 @@ struct MenuItemCard: View {
             if !item.description.isEmpty {
                 Text(item.description)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .appForegroundStyle(.secondary)
             }
             if let origin = item.origin, !origin.isEmpty {
                 Text("(\(origin))")
                     .font(.footnote)
-                    .foregroundStyle(.tertiary)
+                    .appForegroundStyle(.tertiary)
             }
             if !item.allergens.isEmpty {
                 Text("\(NSLocalizedString("allergen.label", comment: "")): \(item.allergens.joined(separator: ", "))")
                     .font(.footnote)
-                    .foregroundStyle(.tertiary)
+                    .appForegroundStyle(.tertiary)
             }
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(uiColor: .secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .glassCardBackground(cornerRadius: 14)
     }
 }

@@ -1,0 +1,8 @@
+"Today's menu" = "Today's menu";
+"Reads today's lunch menu from the SIX canteens." = "Reads today's lunch menu from the SIX canteens.";
+"Restaurant" = "Restaurant";
+"Show today's menu at \\(.\\$restaurant)" = "Show today's menu at \\(.\\$restaurant)";
+"What's for lunch today in \\(.\\$restaurant)? ${applicationName}" = "What's for lunch today in \\(.\\$restaurant)? ${applicationName}";
+"Show today's menu ${applicationName}" = "Show today's menu ${applicationName}";
+"What's for lunch? ${applicationName}" = "What's for lunch? ${applicationName}";
+"No menu is available for today." = "No menu is available for today.";

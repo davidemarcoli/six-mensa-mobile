@@ -1,7 +1,7 @@
 import Foundation
 
 actor JSONCache {
-    static let appGroupID = "group.dev.davidemarcoli.zmittag"
+    static let appGroupID = "group.dev.davidemarcoli.mensa"
 
     private let directory: URL
 
@@ -64,7 +64,7 @@ actor JSONCache {
         try fileManager.moveItem(at: temporary, to: target)
     }
 
-    private struct Envelope<T: Codable>: Codable {
+    struct Envelope<T> {
         var fetchedAt: Double
         var payload: T
     }
@@ -84,7 +84,48 @@ actor JSONCache {
     }
 
     static let pdfKey = "pdf_links"
+
+    /// Deletes cached history files whose `to` month is older than the retention
+    /// window, so the app group storage does not creep without bound.
+    func pruneHistory(retentionMonths: Int = 13) throws {
+        let fileManager = FileManager.default
+        let files = try fileManager.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)
+        let historyFiles = files.filter {
+            $0.lastPathComponent.hasPrefix("history_") && $0.pathExtension == "json"
+        }
+        var refer = Calendar(identifier: .gregorian)
+        refer.timeZone = DayResolver.zurich
+        let cutoff = refer.date(byAdding: .month, value: -retentionMonths, to: Date()) ?? Date()
+
+        for file in historyFiles {
+            let name = file.deletingPathExtension().lastPathComponent
+            guard let toToken = Self.historyToToken(in: name),
+                  let monthDate = Self.monthDate(from: toToken, calendar: refer),
+                  monthDate < cutoff
+            else { continue }
+            try? fileManager.removeItem(at: file)
+        }
+    }
+
+    private static func historyToToken(in name: String) -> String? {
+        let parts = name.split(separator: "_")
+        guard parts.count >= 4 else { return nil }
+        return String(parts[3])
+    }
+
+    private static func monthDate(from token: String, calendar: Calendar) -> Date? {
+        let comps = token.split(separator: "-")
+        guard comps.count == 2, let month = Int(comps[1]), let year = Int(comps[0]) else { return nil }
+        var components = DateComponents()
+        components.year = year
+        components.month = month
+        components.day = 1
+        return calendar.date(from: components)
+    }
 }
+
+extension JSONCache.Envelope: Decodable where T: Decodable {}
+extension JSONCache.Envelope: Encodable where T: Encodable {}
 
 enum CacheTTL {
     static let week: TimeInterval = 6 * 3600

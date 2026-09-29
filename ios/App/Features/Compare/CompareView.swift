@@ -26,13 +26,14 @@ struct CompareView: View {
             }
             .refreshable { await load(force: true) }
             .navigationTitle("compare.title")
+            .navigationBarTitleDisplayMode(.inline)
             .overlay {
                 if isLoading && weeks.isEmpty {
                     ProgressView()
                 } else if let errorText, weeks.isEmpty {
                     VStack(spacing: 16) {
                         Text(errorText)
-                            .foregroundStyle(.secondary)
+                            .appForegroundStyle(.secondary)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
                         Button(NSLocalizedString("retry", comment: "")) {
@@ -55,6 +56,7 @@ struct CompareView: View {
                 Image(systemName: "chevron.left")
             }
             .disabled(dayLabels.isEmpty)
+            .accessibilityLabel(NSLocalizedString("compare.prev_day", comment: ""))
             Spacer()
             if !dayLabels.isEmpty {
                 VStack(spacing: 2) {
@@ -62,7 +64,7 @@ struct CompareView: View {
                         .font(.headline)
                     Text(dayLabels[safeDay].date)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .appForegroundStyle(.secondary)
                 }
             }
             Spacer()
@@ -73,6 +75,7 @@ struct CompareView: View {
                 Image(systemName: "chevron.right")
             }
             .disabled(dayLabels.isEmpty)
+            .accessibilityLabel(NSLocalizedString("compare.next_day", comment: ""))
         }
         .padding()
     }
@@ -89,7 +92,7 @@ struct CompareView: View {
                 }
             } else {
                 Text(String(format: NSLocalizedString("compare.empty", comment: ""), restaurant.displayName))
-                    .foregroundStyle(.secondary)
+                    .appForegroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
@@ -99,9 +102,13 @@ struct CompareView: View {
         let language = settings.language
         for restaurant in Restaurant.allCases {
             let key = JSONCache.weekKey(restaurant: restaurant, language: language)
-            if !force, let cached = await JSONCache().read([DayMenu].self, key, ttl: CacheTTL.week) {
-                weeks[restaurant] = cached
-            } else if let stale = await JSONCache().read([DayMenu].self, key, ttl: .infinity) {
+            if !force {
+                if let cached: [DayMenu] = await JSONCache().read(key, ttl: CacheTTL.week) {
+                    weeks[restaurant] = cached
+                } else if let stale: [DayMenu] = await JSONCache().read(key, ttl: .infinity) {
+                    weeks[restaurant] = stale
+                }
+            } else if let stale: [DayMenu] = await JSONCache().read(key, ttl: .infinity) {
                 weeks[restaurant] = stale
             }
             do {

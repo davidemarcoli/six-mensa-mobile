@@ -13,11 +13,13 @@ struct MenuAPI: Sendable {
         var errorDescription: String? {
             switch self {
             case .invalidRestaurant:
-                return "Invalid restaurant"
+                return NSLocalizedString("api.error.invalid_restaurant", comment: "")
             case .menuNotFound:
-                return "Menu not found"
+                return NSLocalizedString("api.error.menu_not_found", comment: "")
             case .http(let code, let body):
-                return body.isEmpty ? "Server error (\(code))" : "Server error (\(code)): \(body)"
+                return body.isEmpty
+                    ? String(format: NSLocalizedString("api.error.http", comment: ""), code)
+                    : String(format: NSLocalizedString("api.error.http", comment: ""), code) + ": \(body)"
             case .network:
                 return NSLocalizedString("error.generic", comment: "")
             case .malformed:

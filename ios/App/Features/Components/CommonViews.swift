@@ -40,8 +40,10 @@ struct ChoiceChips<T: Hashable>: View {
                         .foregroundStyle(isSelected ? Color.white : .primary)
                 }
                 .buttonStyle(.plain)
+                .accessibilityAddTraits(isSelected ? .isSelected : [])
             }
         }
+        .sensoryFeedback(.selection, trigger: selection)
     }
 }
 
@@ -77,10 +79,10 @@ struct EmptyStateView: View {
         VStack(spacing: 10) {
             Image(systemName: systemImage)
                 .font(.largeTitle)
-                .foregroundStyle(.tertiary)
+                .appForegroundStyle(.tertiary)
             Text(NSLocalizedString(titleKey, comment: ""))
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .appForegroundStyle(.secondary)
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

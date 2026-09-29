@@ -19,7 +19,25 @@ enum NotificationManager {
         (try? await UNUserNotificationCenter.current().notificationSettings())?.authorizationStatus ?? .notDetermined
     }
 
-    static func scheduleDaily(hour: Int, minute: Int, restaurant: Restaurant, language: ContentLanguage) async -> Date {
+    static func armDaily() async {
+        let settings = SettingsStore()
+        guard settings.notificationsEnabled else { return }
+        _ = await scheduleDaily(
+            hour: settings.notificationHour,
+            minute: settings.notificationMinute,
+            restaurant: settings.standardRestaurant,
+            language: settings.language
+        )
+    }
+
+    /// Removes the pending notification and clears the recorded fire date. Used
+    /// by the office geofence when the user leaves the circle.
+    static func disarm() async {
+        await cancel()
+        SettingsStore().scheduledNotificationAt = nil
+    }
+
+    static func scheduleDaily(hour: Int, minute: Int, restaurant: Restaurant, language: ContentLanguage) async -> Date? {
         let fireDate = DayResolver.nextWeekdayOccurrence(after: Date(), hour: hour, minute: minute)
 
         var calendar = Calendar(identifier: .gregorian)
@@ -71,7 +89,7 @@ enum NotificationManager {
         return content
     }
 
-    private static func add(_ content: UNMutableNotificationContent, with trigger: NotificationTrigger) async {
+    private static func add(_ content: UNMutableNotificationContent, with trigger: UNNotificationTrigger) async {
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         let center = UNUserNotificationCenter.current()
         try? await center.removePendingNotificationRequests(withIdentifiers: [identifier])
@@ -82,7 +100,8 @@ enum NotificationManager {
         guard let day = await fetchToday(restaurant: restaurant, language: language) else {
             return ""
         }
-        return ShareText.summaryLines(day: day, language: language).joined(separator: "\n")
+        let preferred = SettingsStore().preferredMenuType
+        return ShareText.summaryLines(day: day.filtered(to: preferred), language: language).joined(separator: "\n")
     }
 
     private static func fetchToday(restaurant: Restaurant, language: ContentLanguage) async -> DayMenu? {

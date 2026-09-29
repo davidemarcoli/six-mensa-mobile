@@ -51,7 +51,7 @@ enum ShareText {
 
     private static func number(_ value: Double, language: ContentLanguage) -> String {
         let formatter = NumberFormatter()
-        formatter.locale = language.locale
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.numberStyle = .decimal
         formatter.minimumFractionDigits = 2
         formatter.maximumFractionDigits = 2

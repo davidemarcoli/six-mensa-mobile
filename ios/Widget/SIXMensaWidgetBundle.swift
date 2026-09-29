@@ -1,7 +1,8 @@
 import WidgetKit
+import SwiftUI
 
 @main
-struct ZmittagWidgetBundle: WidgetBundle {
+struct SIXMensaWidgetBundle: WidgetBundle {
     var body: some Widget {
         TodayMenuWidget()
     }

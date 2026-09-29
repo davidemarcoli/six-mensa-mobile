@@ -1,0 +1,453 @@
+{
+  "schemaVersion": 2,
+  "appName": "SIX Mensa",
+  "themeId": "clean-light",
+  "connectedCanvas": true,
+  "locales": [
+    "en"
+  ],
+  "locale": "en",
+  "device": "iphone",
+  "orientation": "portrait",
+  "appIcon": "/app-icon.png",
+  "slidesByDevice": {
+    "iphone": [
+      {
+        "id": "s_mppgoot8_1",
+        "layout": "device-bottom",
+        "label": {
+          "en": "DAILY MENU"
+        },
+        "headline": {
+          "en": "Today's lunch,\nwithout the queue."
+        },
+        "screenshot": "/screenshots/apple/iphone/en/01-menu.png",
+        "transforms": {
+          "device": {
+            "x": 168.0750616258624,
+            "y": 743.8840940224479,
+            "width": 977,
+            "height": 1991,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        },
+        "bg": "#DFF3EA",
+        "blob": {
+          "x": -15,
+          "y": 0,
+          "size": 55
+        }
+      },
+      {
+        "id": "s_mppgoot8_2",
+        "layout": "two-devices",
+        "label": {
+          "en": "COMPARE"
+        },
+        "headline": {
+          "en": "Two menus.\nOne decision."
+        },
+        "screenshot": "/screenshots/apple/iphone/en/06-compare.png",
+        "screenshotSecondary": "/screenshots/apple/iphone/en/01-menu.png",
+        "transforms": {
+          "deviceSecondary": {
+            "x": 763.9463382310068,
+            "y": 1037.8651668125306,
+            "width": 871.2,
+            "height": 1774.7929549902153,
+            "rotation": 9,
+            "zIndex": 2
+          },
+          "caption": {
+            "x": 122.40346341765144,
+            "y": 233.80937349248575,
+            "width": 1108.8,
+            "height": 803.0400000000001,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": -61.57571859014206,
+            "y": 1099.1771644858325,
+            "width": 912.27195389049,
+            "height": 1858.4640000000002,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        },
+        "bg": "#171717",
+        "blob": {
+          "x": 66,
+          "y": -10,
+          "size": 55
+        }
+      },
+      {
+        "id": "s_mppgoot8_3",
+        "layout": "device-top",
+        "label": {
+          "en": "LIGHT & DARK"
+        },
+        "headline": {
+          "en": "Beautiful in\nany light."
+        },
+        "screenshot": "/screenshots/apple/iphone/en/05-menu-light.png",
+        "inverted": true,
+        "transforms": {
+          "device": {
+            "x": 504.78969418657834,
+            "y": 783.7674562434278,
+            "width": 1013.6355043227666,
+            "height": 2064.96,
+            "rotation": 0,
+            "zIndex": 3
+          },
+          "caption": {
+            "x": 125.72631578947357,
+            "y": 213.84210526315758,
+            "width": 1108.8,
+            "height": 803.0400000000001,
+            "rotation": 0,
+            "zIndex": 4
+          }
+        },
+        "blob": {
+          "x": -20,
+          "y": -10,
+          "size": 55
+        }
+      },
+      {
+        "id": "s_mppgoot8_4",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so\nmuch more."
+        },
+        "screenshot": "",
+        "transforms": {
+          "caption": {
+            "x": 241.29346279918536,
+            "y": 2371.0887129692646,
+            "width": 1056,
+            "height": 860.4,
+            "rotation": 0,
+            "zIndex": 4
+          }
+        }
+      },
+      {
+        "id": "s_mpptmmaa_i",
+        "layout": "two-devices",
+        "label": {
+          "en": "HOME SCREEN WIDGET"
+        },
+        "headline": {
+          "en": "Glance your\nfood briefly."
+        },
+        "screenshot": "/screenshots/uploaded/9c4d65d98f542a5a.png",
+        "transforms": {
+          "deviceSecondary": {
+            "x": -1523.2632116211935,
+            "y": -121.9192834605565,
+            "width": 1150,
+            "height": 2344,
+            "rotation": 0,
+            "zIndex": 2
+          },
+          "device": {
+            "x": 235.34909874108416,
+            "y": 876.7023157894736,
+            "width": 912.27195389049,
+            "height": 1858.4640000000002,
+            "rotation": 0,
+            "zIndex": 3
+          },
+          "caption": {
+            "x": 105.60000000000036,
+            "y": 229.44,
+            "width": 1108.8,
+            "height": 803.0400000000001,
+            "rotation": 0,
+            "zIndex": 4
+          }
+        },
+        "screenshotSecondary": "/screenshots/apple/iphone/en/02-home-small.png",
+        "bg": "#171717"
+      },
+      {
+        "id": "s_mpptvxsc_i",
+        "layout": "device-bottom",
+        "label": {
+          "en": "STATS"
+        },
+        "headline": {
+          "en": "Know your\nlunch habits."
+        },
+        "screenshot": "/screenshots/apple/iphone/en/07-stats.png",
+        "transforms": {
+          "caption": {
+            "x": 105.60000000000036,
+            "y": 229.44,
+            "width": 1108.8,
+            "height": 803.0400000000001,
+            "rotation": 0,
+            "zIndex": 4
+          }
+        },
+        "blob": {
+          "x": 0,
+          "y": 40,
+          "size": 55
+        }
+      },
+      {
+        "id": "s_sixmensa_lockscreen",
+        "layout": "device-bottom",
+        "label": {
+          "en": "LOCK SCREEN"
+        },
+        "headline": {
+          "en": "On the lock\nscreen, too."
+        },
+        "screenshot": "/screenshots/apple/iphone/en/04-lockscreen.png",
+        "transforms": {
+          "device": {
+            "x": 301.9294428260964,
+            "y": 911.4168382927362,
+            "width": 1663,
+            "height": 3389,
+            "rotation": 0,
+            "zIndex": 3
+          },
+          "caption": {
+            "x": 105.60000000000036,
+            "y": 229.44,
+            "width": 1108.8,
+            "height": 803.0400000000001,
+            "rotation": 0,
+            "zIndex": 4
+          }
+        },
+        "blob": {
+          "x": 34,
+          "y": -10,
+          "size": 55
+        }
+      }
+    ],
+    "android": [
+      {
+        "id": "s_mppgoot8_5",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Sell one\nidea per slide."
+        },
+        "screenshot": "",
+        "transforms": {
+          "device": {
+            "x": 221.0133038940457,
+            "y": 677.042167580437,
+            "width": 678.5844380403457,
+            "height": 1470.266282420749,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        }
+      },
+      {
+        "id": "s_mppgoot8_6",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Your headline\nlives here."
+        },
+        "screenshot": "",
+        "transforms": {
+          "device": {
+            "x": 191.68310412906385,
+            "y": 659.512330975256,
+            "width": 678.5844380403457,
+            "height": 1470.266282420749,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        }
+      },
+      {
+        "id": "s_mppgoot8_7",
+        "layout": "two-devices",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Show two\nscreens at once."
+        },
+        "screenshot": "",
+        "screenshotSecondary": "",
+        "transforms": {
+          "deviceSecondary": {
+            "x": 280.3938895417132,
+            "y": 525.2025777437636,
+            "width": 678.5844380403457,
+            "height": 1470.266282420749,
+            "rotation": 0,
+            "zIndex": 2
+          },
+          "device": {
+            "x": 143.75673196815296,
+            "y": 569.6411918847805,
+            "width": 610.7259942363112,
+            "height": 1323.239654178674,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        }
+      },
+      {
+        "id": "s_mppgoot8_8",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 03"
+        },
+        "headline": {
+          "en": "Flip the contrast\nfor visual rhythm."
+        },
+        "screenshot": "",
+        "inverted": true
+      },
+      {
+        "id": "s_mppgoot8_9",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so\nmuch more."
+        },
+        "screenshot": ""
+      }
+    ],
+    "ipad": [
+      {
+        "id": "s_mppgoot8_a",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nthe big screen."
+        },
+        "screenshot": "",
+        "transforms": {
+          "device": {
+            "x": 68.64736263219729,
+            "y": 818.7701245593419,
+            "width": 1525.7087999999999,
+            "height": 1981.4399999999998,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        }
+      },
+      {
+        "id": "s_mppgoot8_b",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Built for\nfocus."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mppgoot8_c",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Always within reach."
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "android-7": [
+      {
+        "id": "s_mppgoot8_d",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Pocket-sized\npower."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mppgoot8_e",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Wide canvas,\nbigger ideas."
+        },
+        "screenshot": ""
+      }
+    ],
+    "android-10": [
+      {
+        "id": "s_mppgoot8_f",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nthe big screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mppgoot8_g",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Wide canvas,\nbigger ideas."
+        },
+        "screenshot": ""
+      }
+    ],
+    "feature-graphic": [
+      {
+        "id": "s_mppgoot8_h",
+        "layout": "feature-graphic",
+        "label": {},
+        "headline": {
+          "en": "Your tagline goes here."
+        },
+        "screenshot": ""
+      }
+    ]
+  },
+  "crossScreenMockupsByDevice": {
+    "iphone": [],
+    "ipad": [],
+    "android": [],
+    "android-7": [],
+    "android-10": [],
+    "feature-graphic": []
+  }
+}

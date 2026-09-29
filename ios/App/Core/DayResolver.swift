@@ -92,7 +92,7 @@ enum DayResolver {
 
     static func parseDate(_ date: String, month: String, language: ContentLanguage) -> Int? {
         var candidates = [month]
-        candidates.append(contentsOf: date.matches(of: /\p{L}{3,}/).map { $0.output.0 })
+        candidates.append(contentsOf: date.matches(of: /\p{L}{3,}/).map { String($0.output) })
         for candidate in candidates {
             if let value = monthNames[candidate.trimmingCharacters(in: .whitespaces).lowercased()] {
                 return value
@@ -102,11 +102,11 @@ enum DayResolver {
     }
 
     private static func parseMonthDay(_ raw: String) -> (day: Int, month: Int)? {
-        guard let dayMatch = raw.firstMatch(of: /\d{1,2}/), let day = Int(dayMatch.output.0) else {
+        guard let dayMatch = raw.firstMatch(of: /\d{1,2}/), let day = Int(dayMatch.output) else {
             return nil
         }
         for word in raw.matches(of: /\p{L}{3,}/) {
-            if let month = monthNames[word.output.0.lowercased()] {
+            if let month = monthNames[word.output.lowercased()] {
                 return (day, month)
             }
         }

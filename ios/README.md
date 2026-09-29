@@ -25,7 +25,7 @@ Widget/                  WidgetKit extension (small/medium/large, brand-red desi
 Scripts/                 generate-project.ps1 — regenerates project.pbxproj from the file tree
 ```
 
-**App Group**: `group.dev.davidemarcoli.zmittag` — the app writes the cached week + settings into the
+**App Group**: `group.dev.davidemarcoli.mensa` — the app writes the cached week + settings into the
 shared container; the widget reads it there. Cache TTLs: week 6 h, history 12 h, PDF links 24 h.
 
 ## Build & run (on a Mac)
@@ -35,8 +35,8 @@ shared container; the widget reads it there. Cache TTLs: week 6 h, history 12 h,
 3. Select the **Zmittag** target → *Signing & Capabilities* → pick your **Team** (same for the
    **ZmittagWidget** target).
 4. App Group: if signing fails with an App Group error, add the *App Groups* capability to **both**
-   targets and create the group `dev.davidemarcoli.zmittag` (the entitlements files already reference
-   `group.dev.davidemarcoli.zmittag`).
+   targets and create the group `dev.davidemarcoli.mensa` (the entitlements files already reference
+   `group.dev.davidemarcoli.mensa`).
 5. Add an app icon: `App/Assets.xcassets/AppIcon.appiconset` currently has an empty 1024 px slot —
    drop a 1024×1024 PNG in and name it in the set (white utensils glyph on `#DE3919` matches Android).
 6. Build & run on a real device (or simulator).
@@ -76,8 +76,8 @@ powershell -ExecutionPolicy Bypass -File Scripts\generate-project.ps1
 2. **TestFlight** (optional): in Xcode *Organizer* select the archive → *Distribute App → App Store
    Connect* → *Upload*, or use the *TestFlight* tab to upload and add internal testers right away.
 3. **App Store Connect** (appstoreconnect.apple.com):
-   - *My Apps → +* → new app, platform iOS, name e.g. "Zmittag — SIX Mensa",
-     bundle ID **`dev.davidemarcoli.zmittag`** (must match the target), primary language English.
+   - *My Apps → +* → new app, platform iOS, name e.g. "SIX Mensa",
+     bundle ID **`dev.davidemarcoli.mensa`** (must match the target), primary language English.
    - Fill in App Information: description, keywords, support/marketing URL, SKU (auto),
      age rating (will be 4+), pricing tier (free).
    - Privacy: the app collects **no data** — select "Data Not Collected"
@@ -88,7 +88,7 @@ powershell -ExecutionPolicy Bypass -File Scripts\generate-project.ps1
 ### Before submitting, double-check
 
 - [ ] App icon set (otherwise the app ships with the placeholder icon).
-- [ ] Widget appears on a test device: long-press home screen → `+` → Zmittag.
+- [ ] Widget appears on a test device: long-press home screen → `+` → SIX Mensa.
 - [ ] Notification flow: Settings → toggle on (grants permission) → "Send test notification" →
       received; toggle off → pending notification cancelled.
 - [ ] German/English switch updates menu text, prices (9.90 vs 9,90) and widget.

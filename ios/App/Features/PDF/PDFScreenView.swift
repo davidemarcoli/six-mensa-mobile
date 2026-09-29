@@ -25,14 +25,14 @@ struct PDFScreenView: View {
                 case .loading:
                     VStack(spacing: 12) {
                         ProgressView()
-                        Text("pdf.loading").foregroundStyle(.secondary)
+                        Text("pdf.loading").appForegroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .failed:
                     VStack(spacing: 16) {
                         Image(systemName: "doc.badge.exclamationmark")
                             .font(.largeTitle)
-                            .foregroundStyle(.secondary)
+                            .appForegroundStyle(.secondary)
                         Text("pdf.error")
                         Button {
                             Task { await load() }
